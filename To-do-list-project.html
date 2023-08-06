@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Todo List</title>
+  <style>
+    
+    #app-container {
+      border: 0;
+      text-align: center;
+    }
+    .search-input {
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #555;
+      outline: none;
+      margin-left: 30%;
+    }
+
+    .search-input:focus{
+      border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      margin-left: 8px;
+      text-align: center;
+      border-radius: 5px;
+    }
+    .button {
+        background: #fff;
+        border: none;
+        padding: 10px 20px;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 600;
+        width: 120px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transform: skew(-21deg);
+        
+      }
+
+      .button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        left: 0;
+        background: rgb(20, 20, 20);
+        opacity: 0;
+        z-index: -1;
+        transition: all 0.5s;
+      }
+
+      .button:hover {
+        color: #fff;
+      }
+
+      .button:hover::before {
+        left: 0;
+        right: 0;
+        opacity: 1;
+      }
+
+      #button {
+ font-size: 16px;
+ position: relative;
+ margin: auto;
+ padding: 1em 2.5em 1em 2.5em;
+ border: none;
+ background: black;
+ transition: all 0.1s linear;
+ box-shadow: 0 0.4em 1em ;
+ color: white;
+ margin-left: 40%;
+}
+
+#button:active {
+ transform: scale(0.95);
+}
+
+#button span {
+ color: #464646;
+}
+
+#button .border {
+ position: absolute;
+ border: 0.15em solid white;
+ transition: all 0.3s 0.08s linear;
+ top: 50%;
+ left: 50%;
+ width: 9em;
+ height: 3em;
+ transform: translate(-50%, -50%);
+}
+
+#button:hover .border {
+ display: block;
+ width: 9.9em;
+ height: 3.7em;
+}
+        
+    .todo-item {
+      list-style-type: none;
+      margin: 8px;
+      padding: 4px;
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
+    #todo-list {
+      margin-top: 10px;
+      padding: 0;
+      list-style: none;
+      border: none;
+      margin-left: 40%;
+    }
+
+    .todo-item {
+      margin: 0;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      border: none;
+      font-size: x-large;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <input type="text" class="search-input" id="todo-input" placeholder="What needs to be done ?">
+    <button class="button" onclick="addTodo()">Add</button>
+    <ul id="todo-list"></ul>
+    <button id="button" onclick="clearAll()">Clear All</button>
+    <div id="todo-list"></div>
+  </div>
+
+  <script>
+    function addTodo() {
+      const todoInput = document.getElementById('todo-input');
+      const todoList = document.getElementById('todo-list');
+
+      if (todoInput.value.trim() === '') {
+        return; // Prevent adding empty todo items
+      }
+
+      const newTodo = document.createElement('li');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.onclick = function () {
+        newTodo.classList.toggle('completed');
+        saveTodoListToLocalStorage(); // Update the saved todo list when the checkbox is clicked
+      };
+
+      newTodo.appendChild(checkbox);
+      const todoText = document.createTextNode(todoInput.value);
+      newTodo.appendChild(todoText);
+
+      newTodo.classList.add('todo-item');
+      todoList.appendChild(newTodo);
+      todoInput.value = '';
+
+      saveTodoListToLocalStorage(); // Save the updated todo list after adding a new item
+    }
+
+    function saveTodoListToLocalStorage() {
+      const todoList = document.getElementById('todo-list').innerHTML;
+      localStorage.setItem('todoList', todoList);
+    }
+
+    function clearAll() {
+      const todoList = document.getElementById('todo-list');
+      todoList.innerHTML = ''; // Clear the HTML content of the todo list
+      localStorage.removeItem('todoList'); // Remove the saved todo list from localStorage
+    }
+
+    // Load saved todo list from localStorage on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedTodoList = localStorage.getItem('todoList');
+      if (savedTodoList) {
+        const todoList = document.getElementById('todo-list');
+        todoList.innerHTML = savedTodoList;
+      }
+    });
+
+</script>
+</body>
+</html>
