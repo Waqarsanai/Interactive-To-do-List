@@ -1,0 +1,120 @@
+/* Global Styles */
+#app-container {
+  border: 0;
+  text-align: center;
+}
+
+.search-input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  width: 60%;
+  max-width: 400px;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-left: 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.button {
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  transform: skew(-21deg);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.button:hover {
+  color: #fff;
+}
+
+.button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+#add-button {
+  background: black;
+  color: white;
+  border: none;
+  transition: all 0.1s linear;
+  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.3);
+}
+
+#add-button:active {
+  transform: scale(0.95);
+}
+
+#add-button .border {
+  position: absolute;
+  border: 0.15em solid white;
+  transition: all 0.3s 0.08s linear;
+  top: 50%;
+  left: 50%;
+  width: 9em;
+  height: 3em;
+  transform: translate(-50%, -50%);
+}
+
+#add-button:hover .border {
+  display: block;
+  width: 9.9em;
+  height: 3.7em;
+}
+
+#clear-button {
+  background-color: red;
+  color: white;
+  border: none;
+}
+
+.todo-item {
+  list-style-type: none;
+  margin: 8px;
+  padding: 4px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  font-size: x-large;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+#todo-list {
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+}
